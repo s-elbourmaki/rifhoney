@@ -11,7 +11,7 @@ export default function CartDrawer() {
     const itemLines = items
       .map(
         (item, i) =>
-          `${i + 1}. ${item.name} (${item.weight}) × ${item.quantity} — $${item.price * item.quantity}`
+          `${i + 1}. ${item.name} (${item.weight}) × ${item.quantity} — ${item.price * item.quantity} DH`
       )
       .join('\n');
 
@@ -23,7 +23,7 @@ export default function CartDrawer() {
       ``,
       `━━━━━━━━━━━━━━━━━━`,
       `📦 Items: ${totalItems}`,
-      `💰 *Total: $${totalPrice}*`,
+      `💰 *Total: ${totalPrice} DH*`,
       `🚚 Shipping: Free`,
       ``,
       `Please confirm my order. Thank you!`,
@@ -155,7 +155,7 @@ export default function CartDrawer() {
                       {/* Quantity Controls - Larger for touch */}
                       <div className="flex items-center gap-0 border border-[#C8860A25] bg-[#0F0A04]">
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.id, item.weight, item.quantity - 1)}
                           className="w-10 h-10 flex items-center justify-center text-[#C8860A] hover:bg-[#C8860A15] transition-colors text-base active:bg-[#C8860A20]"
                           aria-label={`Decrease quantity of ${item.name}`}
                         >
@@ -165,7 +165,7 @@ export default function CartDrawer() {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id, item.weight, item.quantity + 1)}
                           className="w-10 h-10 flex items-center justify-center text-[#C8860A] hover:bg-[#C8860A15] transition-colors text-base active:bg-[#C8860A20]"
                           aria-label={`Increase quantity of ${item.name}`}
                         >
@@ -174,13 +174,13 @@ export default function CartDrawer() {
                       </div>
 
                       {/* Price */}
-                      <span className="serif text-lg font-medium gold-text">${item.price * item.quantity}</span>
+                      <span className="serif text-lg font-medium gold-text">{item.price * item.quantity} DH</span>
                     </div>
                   </div>
 
                   {/* Remove Button - Larger touch target */}
                   <button
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(item.id, item.weight)}
                     className="absolute top-1 right-1 p-3 text-[#FDF6E315] hover:text-red-400 transition-colors duration-200 active-shrink"
                     aria-label={`Remove ${item.name} from cart`}
                   >
@@ -209,7 +209,7 @@ export default function CartDrawer() {
             <div className="flex flex-col gap-2.5 mb-6">
               <div className="flex items-center justify-between">
                 <span className="text-xs tracking-wider uppercase text-[#FDF6E350]">Subtotal</span>
-                <span className="serif text-lg text-[#FDF6E3]">${totalPrice}</span>
+                <span className="serif text-lg text-[#FDF6E3]">{totalPrice} DH</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs tracking-wider uppercase text-[#FDF6E350]">Shipping</span>
@@ -218,7 +218,7 @@ export default function CartDrawer() {
               <hr className="border-0 h-px bg-[#C8860A15] my-1" />
               <div className="flex items-center justify-between">
                 <span className="text-sm tracking-widest uppercase text-[#FDF6E3] font-bold">Total</span>
-                <span className="serif text-2xl font-bold gold-text">${totalPrice}</span>
+                <span className="serif text-2xl font-bold gold-text">{totalPrice} DH</span>
               </div>
             </div>
 

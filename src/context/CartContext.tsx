@@ -16,8 +16,8 @@ interface CartContextType {
   totalItems: number;
   totalPrice: number;
   addItem: (product: Omit<CartItem, 'quantity'>) => void;
-  removeItem: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeItem: (id: number, weight: string) => void;
+  updateQuantity: (id: number, weight: string, quantity: number) => void;
   clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -35,10 +35,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = useCallback((product: Omit<CartItem, 'quantity'>) => {
     setItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => item.id === product.id && item.weight === product.weight);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id
+          (item.id === product.id && item.weight === product.weight)
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -47,17 +47,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const removeItem = useCallback((id: number) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
+  const removeItem = useCallback((id: number, weight: string) => {
+    setItems((prev) => prev.filter((item) => !(item.id === id && item.weight === weight)));
   }, []);
 
-  const updateQuantity = useCallback((id: number, quantity: number) => {
+  const updateQuantity = useCallback((id: number, weight: string, quantity: number) => {
     if (quantity <= 0) {
-      setItems((prev) => prev.filter((item) => item.id !== id));
+      setItems((prev) => prev.filter((item) => !(item.id === id && item.weight === weight)));
       return;
     }
     setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
+      prev.map((item) => (item.id === id && item.weight === weight ? { ...item, quantity } : item))
     );
   }, []);
 
