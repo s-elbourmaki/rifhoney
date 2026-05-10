@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { totalItems, toggleCart } = useCart();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -13,18 +16,27 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: 'Collection', href: '#collection' },
-    { label: 'Our Story', href: '#about' },
-    { label: 'The Farm', href: '#farm' },
-    { label: 'Process', href: '#process' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Collection', href: 'collection' },
+    { label: 'Our Story', href: 'about' },
+    { label: 'The Farm', href: 'farm' },
+    { label: 'Process', href: 'process' },
+    { label: 'Contact', href: 'contact' },
   ];
 
-  const scrollTo = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
     setMenuOpen(false);
-    const el = document.querySelector(href);
+
+    if (location.pathname !== '/') {
+      navigate(`/#${href}`);
+      // The home page will handle scrolling via useEffect if needed, 
+      // but standard browser hash behavior usually works if the element is in DOM.
+      return;
+    }
+
+    const el = document.querySelector(`#${href}`);
     if (el) {
-      const headerOffset = scrolled ? 80 : 100; // Account for fixed header height
+      const headerOffset = scrolled ? 90 : 120;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -39,45 +51,44 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'glass border-b border-[#C8860A22] py-3'
-            : 'bg-transparent py-5'
+          scrolled || location.pathname !== '/'
+            ? 'glass border-b border-[#C8860A22] py-4'
+            : 'bg-transparent py-8'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a
-              href="#hero"
-              onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }}
-              className="flex items-center gap-3 group"
+            <Link
+              to="/"
+              className="flex items-center gap-4 group"
               aria-label="RIF HONEY Home"
             >
-              <div className="w-9 h-9 flex items-center justify-center">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <polygon points="50,4 94,27 94,73 50,96 6,73 6,27" fill="none" stroke="#C8860A" strokeWidth="3"/>
-                  <polygon points="50,18 80,35 80,65 50,82 20,65 20,35" fill="#C8860A" opacity="0.15"/>
-                  <text x="50" y="55" fontFamily="serif" fontSize="28" fill="#F5A623" textAnchor="middle" dominantBaseline="middle" fontWeight="700">R</text>
-                </svg>
+              <div className="w-14 h-14 overflow-hidden rounded-full border border-[#C8860A20] transition-transform duration-500 group-hover:scale-110">
+                <img 
+                  src="/tick.jpeg" 
+                  alt="RIF HONEY Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="serif font-bold text-lg tracking-[0.15em] text-[#F5A623] group-hover:text-[#F0C060] transition-colors">
+                <span className="serif font-bold text-2xl tracking-[0.15em] text-[#F5A623] group-hover:text-[#F0C060] transition-colors whitespace-nowrap">
                   RIF HONEY
                 </span>
-                <span className="text-[9px] tracking-[0.25em] text-[#C8860A80] uppercase font-medium">
+                <span className="text-[11px] tracking-[0.25em] text-[#C8860A80] uppercase font-medium mt-1 whitespace-nowrap">
                   Chakrane Mountains · Pure · Artisanal
                 </span>
               </div>
-            </a>
+            </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-14 whitespace-nowrap">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
-                  href={link.href}
-                  onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
-                  className="text-xs tracking-[0.2em] uppercase text-[#FDF6E380] hover:text-[#F5A623] transition-colors duration-300 font-medium"
+                  href={`#${link.href}`}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-base tracking-[0.1em] uppercase text-[#FDF6E380] hover:text-[#F5A623] transition-colors duration-300 font-bold"
                 >
                   {link.label}
                 </a>
@@ -85,31 +96,29 @@ export default function Navbar() {
             </div>
 
             {/* Right side */}
-            <div className="flex items-center gap-4">
-              {/* Cart Button — NOW FUNCTIONAL */}
+            <div className="flex items-center gap-12">
               <button
                 onClick={toggleCart}
                 aria-label={`Shopping cart, ${totalItems} items`}
                 className="relative p-2 text-[#FDF6E360] hover:text-[#F5A623] transition-colors group"
               >
-                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <svg className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
                 </svg>
                 {totalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 gold-gradient text-[#1A1208] text-[9px] font-bold rounded-full flex items-center justify-center cart-badge-pop">
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[20px] h-[20px] px-1 gold-gradient text-[#1A1208] text-[10px] font-bold rounded-full flex items-center justify-center cart-badge-pop">
                     {totalItems}
                   </span>
                 )}
               </button>
 
-              {/* CTA */}
-              <a
-                href="#collection"
-                onClick={(e) => { e.preventDefault(); scrollTo('#collection'); }}
-                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 gold-gradient text-[#1A1208] text-xs font-semibold tracking-[0.15em] uppercase rounded-none hover:opacity-90 transition-opacity"
+              <button
+                onClick={(e) => handleNavClick(e, 'collection')}
+                className="hidden lg:inline-flex items-center gap-2 px-7 py-3 gold-gradient text-[#1A1208] text-sm font-bold tracking-[0.15em] uppercase rounded-none hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 Shop Now
-              </a>
+              </button>
+
 
             {/* Mobile hamburger */}
             <button
@@ -140,8 +149,8 @@ export default function Navbar() {
           {navLinks.map((link, i) => (
             <a
               key={link.label}
-              href={link.href}
-              onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+              href={`#${link.href}`}
+              onClick={(e) => handleNavClick(e, link.href)}
               className={`serif text-4xl font-light tracking-[0.2em] text-[#FDF6E3] hover:text-[#F5A623] transition-all duration-500 ${
                 menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
               }`}
@@ -150,16 +159,15 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#collection"
-            onClick={(e) => { e.preventDefault(); scrollTo('#collection'); }}
+          <button
+            onClick={(e) => handleNavClick(e, 'collection')}
             className={`mt-6 px-12 py-5 gold-gradient text-[#1A1208] text-sm font-bold tracking-[0.25em] uppercase active-shrink transition-all duration-500 ${
               menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
             style={{ transitionDelay: `${navLinks.length * 100}ms` }}
           >
             Shop Now
-          </a>
+          </button>
         </div>
 
         {/* Decorative element for mobile menu */}

@@ -15,12 +15,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <polygon points="50,4 94,27 94,73 50,96 6,73 6,27" fill="none" stroke="#C8860A" strokeWidth="3"/>
-                  <polygon points="50,18 80,35 80,65 50,82 20,65 20,35" fill="#C8860A" opacity="0.15"/>
-                  <text x="50" y="55" fontFamily="serif" fontSize="28" fill="#F5A623" textAnchor="middle" dominantBaseline="middle" fontWeight="700">R</text>
-                </svg>
+              <div className="w-10 h-10 overflow-hidden rounded-full border border-[#C8860A20]">
+                <img 
+                  src="/tick.jpeg" 
+                  alt="RIF HONEY Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <div className="serif font-bold text-lg tracking-[0.15em] text-[#F5A623]">RIF HONEY</div>

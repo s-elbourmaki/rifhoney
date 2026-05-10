@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 /**
  * Hero background cycles: Image (5s) → crossfade → Video → crossfade → Image → ...
@@ -11,10 +12,13 @@ const CROSSFADE_DURATION = 1500;     // ms for the opacity transition
 export default function Hero() {
   const parallaxRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // 'image' = rif.png is visible, 'video' = vid.mp4 is visible
   const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('image');
   const [videoReady, setVideoReady] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Parallax scroll
@@ -30,19 +34,10 @@ export default function Hero() {
 
   // Deferred video load — don't block first paint
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const loadVideo = () => {
-      video.src = '/images/vid.mp4';
-      video.load();
-    };
-
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(loadVideo, { timeout: 1500 });
-    } else {
-      setTimeout(loadVideo, 400);
-    }
+    const timer = setTimeout(() => {
+      setShouldLoadVideo(true);
+    }, 2000); // 2s delay before starting video load
+    return () => clearTimeout(timer);
   }, []);
 
   // When video is loaded and ready
@@ -66,10 +61,7 @@ export default function Hero() {
           video.play().then(() => {
             setActiveMedia('video');
           }).catch(() => {
-            // Autoplay blocked — stay on image, retry after another cycle
-            timerRef.current = setTimeout(() => {
-              setActiveMedia('image'); // re-trigger this effect
-            }, IMAGE_DISPLAY_DURATION);
+            // Autoplay blocked — stay on image
           });
         }
       }, IMAGE_DISPLAY_DURATION);
@@ -81,7 +73,20 @@ export default function Hero() {
   }, [activeMedia, videoReady]);
 
   const scrollToCollection = () => {
+    if (location.pathname !== '/') {
+      navigate('/#collection');
+      return;
+    }
     const el = document.querySelector('#collection');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToAbout = () => {
+    if (location.pathname !== '/') {
+      navigate('/#about');
+      return;
+    }
+    const el = document.querySelector('#about');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -103,6 +108,8 @@ export default function Hero() {
           }}
           loading="eager"
           fetchPriority="high"
+          width="1920"
+          height="1080"
         />
 
         {/* Video — always in DOM for seamless replay */}
@@ -119,7 +126,14 @@ export default function Hero() {
             transition: `opacity ${CROSSFADE_DURATION}ms ease-in-out`,
           }}
           aria-hidden="true"
-        />
+        >
+          {shouldLoadVideo && (
+            <>
+              <source src="/images/vid.webm" type="video/webm" />
+              <source src="/images/vid.mp4" type="video/mp4" />
+            </>
+          )}
+        </video>
 
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0F0A04E6] via-[#0F0A04A0] to-[#0F0A04]" />
@@ -143,58 +157,57 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-5 sm:px-6 max-w-5xl mx-auto flex flex-col items-center">
+      <div className="relative z-10 h-full w-full max-w-7xl mx-auto container-px flex flex-col items-center py-12">
+        {/* Main content centered */}
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
+          {/* Main Headline */}
+          <h1 className="serif font-light text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
+            <span className="gold-text font-bold">RIF</span>{' '}
+            <span className="text-[#FDF6E3] font-light tracking-wider">HONEY</span>
+          </h1>
 
-        {/* Main Headline */}
-        <h1 className="serif font-light text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
-          <span className="gold-text font-bold">RIF</span>{' '}
-          <span className="text-[#FDF6E3] font-light tracking-wider">HONEY</span>
-        </h1>
+          {/* Subtitle */}
+          <p className="text-[#FDF6E3CC] text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
+            Liquid Gold from the Heart of Morocco
+          </p>
 
-        {/* Subtitle */}
-        <p className="text-[#FDF6E3CC] text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
-          Liquid Gold from the Heart of Morocco
-        </p>
-
-        <p className="text-[#FDF6E380] text-[11px] sm:text-sm leading-relaxed max-w-md md:max-w-xl mx-auto mb-10 sm:mb-12 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
-          Harvested by hand from wild mountain flora at altitudes above 1,500 meters — where pristine air and rare wildflowers create nature's finest nectar.
-        </p>
-
-        {/* CTA Buttons - Stacked on mobile, side-by-side on desktop */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-fadeUp opacity-0 w-full sm:w-auto" style={{ animationFillMode: 'forwards', animationDelay: '0.55s' }}>
-          <button
-            onClick={scrollToCollection}
-            className="group active-shrink gold-gradient text-[#1A1208] px-10 py-5 sm:py-4 text-[10px] sm:text-xs tracking-[0.3em] uppercase font-bold hover:opacity-90 transition-all duration-300 w-full sm:w-[240px]"
-          >
-            <span>Explore Collection</span>
-          </button>
-          <button
-            onClick={() => { const el = document.querySelector('#about'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}
-            className="active-shrink border border-[#C8860A60] text-[#FDF6E3E6] px-10 py-5 sm:py-4 text-[10px] sm:text-xs tracking-[0.3em] uppercase font-semibold hover:border-[#C8860A] hover:text-[#F5A623] transition-all duration-300 w-full sm:w-[240px] glass-light"
-          >
-            Our Story
-          </button>
+          <p className="text-[#FDF6E380] text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-md md:max-w-2xl mx-auto mb-6 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
+            Harvested by hand from wild mountain flora at altitudes above 1,500 meters — where pristine air and rare wildflowers create nature's finest nectar.
+          </p>
         </div>
 
-        {/* Stats - Horizontal scroll on mobile or grid */}
-        <div className="mt-16 sm:mt-24 grid grid-cols-3 gap-4 sm:gap-12 w-full max-w-2xl mx-auto animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.7s' }}>
-          {[
-            { value: '1,500+', label: 'Meters Altitude' },
-            { value: '100%', label: 'Raw & Natural' },
-            { value: '12+', label: 'Varieties' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="serif text-xl sm:text-2xl md:text-3xl font-semibold gold-text mb-1">{stat.value}</div>
-              <div className="text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-[#FDF6E350]">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+        {/* Bottom fixed elements */}
+        <div className="w-full flex flex-col items-center gap-12 sm:gap-16">
+          {/* CTA Buttons - Forced one line */}
+          <div className="flex flex-row items-center justify-center gap-2 sm:gap-6 animate-fadeUp opacity-0 w-full" style={{ animationFillMode: 'forwards', animationDelay: '0.55s' }}>
+            <button
+              onClick={scrollToCollection}
+              className="group active-shrink gold-gradient text-[#1A1208] px-3 sm:px-10 py-4 text-[9px] sm:text-xs tracking-[0.1em] sm:tracking-[0.3em] uppercase font-bold hover:opacity-90 transition-all duration-300 flex-1 max-w-[180px] sm:max-w-[240px] whitespace-nowrap"
+            >
+              Explore Collection
+            </button>
+            <button
+              onClick={scrollToAbout}
+              className="active-shrink border border-[#C8860A60] text-[#FDF6E3E6] px-3 sm:px-10 py-4 text-[9px] sm:text-xs tracking-[0.1em] sm:tracking-[0.3em] uppercase font-semibold hover:border-[#C8860A] hover:text-[#F5A623] transition-all duration-300 glass-light flex-1 max-w-[180px] sm:max-w-[240px] whitespace-nowrap"
+            >
+              Our Story
+            </button>
+          </div>
 
-      {/* Scroll indicator - hidden on small mobile to save space */}
-      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 animate-fadeIn opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '1s' }}>
-        <span className="text-[9px] tracking-[0.3em] uppercase text-[#C8860A60]">Scroll</span>
-        <div className="w-px h-12 bg-gradient-to-b from-[#C8860A] to-transparent animate-pulse" />
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-12 w-full max-w-2xl mx-auto animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.7s' }}>
+            {[
+              { value: '1,500+', label: 'Meters Altitude' },
+              { value: '100%', label: 'Raw & Natural' },
+              { value: '12+', label: 'Varieties' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="serif text-xl sm:text-2xl md:text-3xl font-semibold gold-text mb-1">{stat.value}</div>
+                <div className="text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-[#FDF6E350]">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
