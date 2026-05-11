@@ -30,6 +30,8 @@ export default function About() {
                   alt="Golden honeycomb with bees — RIF HONEY natural process"
                   className="w-full h-72 md:h-[480px] object-cover"
                   loading="lazy"
+                  width="800"
+                  height="600"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F0A0480] to-transparent" />
               </div>
@@ -41,6 +43,8 @@ export default function About() {
                   alt="Honey bees on honeycomb — RIF HONEY"
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  width="400"
+                  height="400"
                 />
               </div>
 
@@ -69,11 +73,11 @@ export default function About() {
               <em className="gold-text font-medium not-italic">Perfects</em> the Art
             </h2>
 
-            <p className="text-[#FDF6E370] leading-relaxed mb-6 text-sm md:text-base">
+            <p className="text-[#FDF6E370] leading-relaxed mb-6 text-base md:text-lg lg:text-xl">
               Nestled deep within the Chakrane Mountains of Morocco's breathtaking Rif region, our family has cultivated a sacred relationship with the land for generations. At elevations exceeding 1,500 meters, our bees roam freely across some of North Africa's most pristine and biodiverse landscapes.
             </p>
 
-            <p className="text-[#FDF6E370] leading-relaxed mb-10 text-sm md:text-base">
+            <p className="text-[#FDF6E370] leading-relaxed mb-10 text-base md:text-lg lg:text-xl">
               The unique combination of cedar forests, wild thyme, mountain lavender, and rare alpine flora imparts an extraordinary complexity to our honey — a terroir as distinctive and celebrated as the world's finest wines.
             </p>
 

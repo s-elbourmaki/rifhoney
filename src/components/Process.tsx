@@ -88,6 +88,8 @@ export default function Process() {
           alt="RIF HONEY production process"
           className="w-full h-full object-cover object-center"
           loading="lazy"
+          width="1920"
+          height="1080"
         />
         <div className="absolute inset-0 bg-[#0B0703EE]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B0703] via-transparent to-[#0B0703]" />

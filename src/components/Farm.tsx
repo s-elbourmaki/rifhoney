@@ -87,6 +87,8 @@ export default function Farm() {
                   alt="Chakrane Mountain farmland — RIF HONEY apiary location"
                   className="w-full h-56 md:h-80 object-cover"
                   loading="lazy"
+                  width="1200"
+                  height="627"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F0A0480] to-transparent" />
                 <div className="absolute bottom-4 left-4">
@@ -102,6 +104,8 @@ export default function Farm() {
                     alt="RIF HONEY beekeeper inspecting hives"
                     className="w-full h-32 md:h-44 object-cover"
                     loading="lazy"
+                    width="400"
+                    height="400"
                   />
                   <div className="absolute inset-0 bg-[#C8860A10]" />
                 </div>
@@ -111,6 +115,8 @@ export default function Farm() {
                     alt="Honeycomb frame inspection at RIF HONEY farm"
                     className="w-full h-32 md:h-44 object-cover"
                     loading="lazy"
+                    width="400"
+                    height="400"
                   />
                   <div className="absolute inset-0 bg-[#C8860A10]" />
                 </div>
