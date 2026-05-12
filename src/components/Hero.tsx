@@ -159,9 +159,9 @@ export default function Hero() {
         </div>
 
         {/* Main Headline */}
-        <h1 className="serif font-light text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-6 animate-fadeUp opacity-0 delay-100" style={{ animationFillMode: 'forwards' }}>
-          <span className="block gold-text font-bold">RIF</span>
-          <span className="block text-[#FDF6E3] font-light tracking-wider">HONEY</span>
+        <h1 className="serif font-light text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none mb-6 animate-fadeUp opacity-0 delay-100" style={{ animationFillMode: 'forwards' }}>
+          <span className="gold-text font-bold">RIF</span>{' '}
+          <span className="text-[#FDF6E3] font-light tracking-wider">HONEY</span>
         </h1>
 
         {/* Subtitle */}
