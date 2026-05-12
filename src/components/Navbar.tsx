@@ -55,8 +55,8 @@ export default function Navbar() {
                 <span className="serif font-bold text-lg tracking-[0.15em] text-[#F5A623] group-hover:text-[#F0C060] transition-colors">
                   RIF HONEY
                 </span>
-                <span className="text-[9px] tracking-[0.35em] text-[#C8860A80] uppercase font-medium">
-                  Chakrane Mountains
+                <span className="text-[9px] tracking-[0.25em] text-[#C8860A80] uppercase font-medium">
+                  Chakrane Mountains · Pure · Artisanal
                 </span>
               </div>
             </a>
