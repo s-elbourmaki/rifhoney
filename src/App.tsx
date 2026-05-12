@@ -11,6 +11,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
+import WhatsAppButton from './components/WhatsAppButton';
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
           <Testimonials />
           <Contact />
         </main>
+        <WhatsAppButton />
         <Footer />
       </div>
     </CartProvider>
