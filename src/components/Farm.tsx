@@ -24,7 +24,7 @@ export default function Farm() {
   const { ref, inView } = useInView();
 
   return (
-    <section id="farm" className="py-24 md:py-36 bg-[#0F0A04] relative overflow-hidden">
+    <section id="farm" className="section-py bg-[#0F0A04] relative overflow-hidden">
       {/* Subtle hex bg pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +37,7 @@ export default function Farm() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto container-px relative z-10">
         <div ref={ref} className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Text side */}
           <div className={`order-2 lg:order-1 transition-all duration-1000 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>

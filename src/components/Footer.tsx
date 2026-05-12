@@ -10,10 +10,10 @@ export default function Footer() {
   return (
     <footer className="bg-[#080503] border-t border-[#C8860A15]">
       {/* Top section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+      <div className="max-w-7xl mx-auto container-px py-16 md:py-20">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-6 lg:gap-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -32,10 +32,10 @@ export default function Footer() {
               Ultra-premium raw honey, harvested by hand from the pristine wilderness of Morocco's Chakrane Mountains. Pure, living, extraordinary.
             </p>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-3">
+            {/* Trust badges - horizontal scroll on mobile */}
+            <div className="flex flex-wrap gap-2.5">
               {['100% Raw', 'Lab Tested', 'No Additives', 'Traceable'].map((badge) => (
-                <span key={badge} className="text-[9px] tracking-widest uppercase text-[#C8860A] border border-[#C8860A40] px-3 py-1">
+                <span key={badge} className="text-[8px] sm:text-[9px] tracking-widest uppercase text-[#C8860A] border border-[#C8860A30] px-3 py-1 bg-[#1A120850]">
                   {badge}
                 </span>
               ))}
@@ -67,10 +67,10 @@ export default function Footer() {
       <hr className="section-divider mx-4 sm:mx-8" />
 
       {/* Bottom bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[#FDF6E330] text-xs tracking-wider">
-            &copy; {year} RIF HONEY. All rights reserved. Chakrane Mountains, Morocco.
+      <div className="max-w-7xl mx-auto container-px py-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
+          <p className="text-[#FDF6E320] text-[10px] sm:text-xs tracking-wider text-center md:text-left leading-relaxed">
+            &copy; {year} RIF HONEY. All rights reserved.<br className="sm:hidden" /> Chakrane Mountains, Morocco.
           </p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-[#FDF6E330] text-xs hover:text-[#F5A623] transition-colors">Privacy Policy</a>

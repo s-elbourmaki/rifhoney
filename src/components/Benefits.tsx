@@ -50,8 +50,8 @@ export default function Benefits() {
   const { ref, inView } = useInView();
 
   return (
-    <section className="py-24 md:py-36 bg-[#0D0903]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-py bg-[#0D0903]">
+      <div className="max-w-7xl mx-auto container-px">
         {/* Header */}
         <div ref={ref} className={`text-center mb-16 md:mb-20 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-6">

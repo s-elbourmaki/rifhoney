@@ -16,22 +16,28 @@ function useInView(threshold = 0.1) {
 export default function Contact() {
   const { ref, inView } = useInView();
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    setForm({ name: '', email: '', subject: '', message: '' });
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+      setForm({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    }, 1500);
   };
 
   return (
-    <section id="contact" className="py-24 md:py-36 bg-[#0F0A04] relative overflow-hidden">
+    <section id="contact" className="section-py bg-[#0F0A04] relative overflow-hidden">
       {/* BG accent */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C8860A40] to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+      <div className="max-w-7xl mx-auto container-px">
+        <div ref={ref} className="grid lg:grid-cols-2 gap-16 lg:gap-20">
           {/* Info */}
           <div className={`transition-all duration-1000 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
             <div className="flex items-center gap-3 mb-6">
@@ -172,19 +178,30 @@ export default function Contact() {
                     <label className="block text-[9px] tracking-[0.3em] uppercase text-[#C8860A80] mb-2">Message</label>
                     <textarea
                       required
-                      rows={5}
+                      rows={4}
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      className="w-full bg-[#1A1208] border border-[#C8860A25] px-4 py-3 text-[#FDF6E3] text-sm placeholder-[#FDF6E330] focus:outline-none focus:border-[#C8860A] transition-colors resize-none"
+                      className="w-full bg-[#1A1208] border border-[#C8860A25] px-4 py-4 text-[#FDF6E3] text-sm placeholder-[#FDF6E330] focus:outline-none focus:border-[#C8860A] transition-colors resize-none"
                       placeholder="Tell us how we can help..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full gold-gradient text-[#1A1208] py-4 text-xs tracking-[0.3em] uppercase font-bold hover:opacity-90 transition-opacity"
+                    disabled={loading}
+                    className={`w-full gold-gradient text-[#1A1208] py-4 text-xs tracking-[0.3em] uppercase font-bold transition-all duration-300 ${
+                      loading ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90 active:scale-[0.98]'
+                    }`}
                   >
-                    Send Message
+                    {loading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        Processing...
+                      </span>
+                    ) : 'Send Message'}
                   </button>
                 </form>
               )}

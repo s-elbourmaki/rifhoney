@@ -88,7 +88,7 @@ export default function Hero() {
   const showVideo = activeMedia === 'video';
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative h-screen-dynamic flex items-center justify-center overflow-hidden">
       {/* Background Container */}
       <div ref={parallaxRef} className="absolute inset-0 z-0">
 
@@ -122,82 +122,77 @@ export default function Hero() {
         />
 
         {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F0A04CC] via-[#0F0A0480] to-[#0F0A04]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F0A04E6] via-[#0F0A04A0] to-[#0F0A04]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0F0A04CC] via-transparent to-[#0F0A0466]" />
 
-        {/* Cinematic accent lines */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C8860A30] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C8860A30] to-transparent" />
+        {/* Cinematic accent lines - hidden on mobile for cleaner look */}
+        <div className="hidden sm:block absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C8860A30] to-transparent" />
+        <div className="hidden sm:block absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C8860A30] to-transparent" />
       </div>
 
-      {/* Hexagon decorations */}
-      <div className="absolute top-24 right-8 md:right-24 w-20 h-20 md:w-32 md:h-32 opacity-10 animate-float" style={{ animationDelay: '0s' }}>
+      {/* Hexagon decorations - scaled down on mobile */}
+      <div className="absolute top-24 right-4 sm:right-12 md:right-24 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 opacity-10 animate-float" style={{ animationDelay: '0s' }}>
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="none" stroke="#F5A623" strokeWidth="1.5" />
         </svg>
       </div>
-      <div className="absolute bottom-32 left-6 md:left-20 w-14 h-14 md:w-24 md:h-24 opacity-10 animate-float" style={{ animationDelay: '1.5s' }}>
+      <div className="absolute bottom-24 left-4 sm:left-12 md:left-20 w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 opacity-10 animate-float" style={{ animationDelay: '1.5s' }}>
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="none" stroke="#F5A623" strokeWidth="1.5" />
-        </svg>
-      </div>
-      <div className="absolute top-1/3 left-4 md:left-10 w-8 h-8 opacity-20 animate-float" style={{ animationDelay: '3s' }}>
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="#F5A623" />
         </svg>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-5 sm:px-6 max-w-5xl mx-auto flex flex-col items-center">
 
         {/* Main Headline */}
-        <h1 className="serif font-light text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none mb-6 animate-fadeUp opacity-0 delay-100" style={{ animationFillMode: 'forwards' }}>
+        <h1 className="serif font-light text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
           <span className="gold-text font-bold">RIF</span>{' '}
           <span className="text-[#FDF6E3] font-light tracking-wider">HONEY</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-[#FDF6E380] text-sm md:text-base lg:text-lg tracking-[0.2em] uppercase mb-4 animate-fadeUp opacity-0 delay-200" style={{ animationFillMode: 'forwards' }}>
+        <p className="text-[#FDF6E3CC] text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
           Liquid Gold from the Heart of Morocco
         </p>
 
-        <p className="text-[#FDF6E360] text-xs md:text-sm leading-relaxed max-w-xl mx-auto mb-12 tracking-wide animate-fadeUp opacity-0 delay-300" style={{ animationFillMode: 'forwards' }}>
-          Harvested by hand from wild mountain flora at altitudes above 1,500 meters — where pristine air, ancient cedar forests, and rare wildflowers create nature's finest nectar.
+        <p className="text-[#FDF6E380] text-[11px] sm:text-sm leading-relaxed max-w-md md:max-w-xl mx-auto mb-10 sm:mb-12 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
+          Harvested by hand from wild mountain flora at altitudes above 1,500 meters — where pristine air and rare wildflowers create nature's finest nectar.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fadeUp opacity-0 delay-400" style={{ animationFillMode: 'forwards' }}>
+        {/* CTA Buttons - Stacked on mobile, side-by-side on desktop */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-fadeUp opacity-0 w-full sm:w-auto" style={{ animationFillMode: 'forwards', animationDelay: '0.55s' }}>
           <button
             onClick={scrollToCollection}
-            className="group gold-gradient text-[#1A1208] px-10 py-4 text-xs tracking-[0.3em] uppercase font-semibold hover:opacity-90 transition-all duration-300 w-full sm:w-auto"
+            className="group active-shrink gold-gradient text-[#1A1208] px-10 py-5 sm:py-4 text-[10px] sm:text-xs tracking-[0.3em] uppercase font-bold hover:opacity-90 transition-all duration-300 w-full sm:w-[240px]"
           >
             <span>Explore Collection</span>
           </button>
           <button
             onClick={() => { const el = document.querySelector('#about'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}
-            className="border border-[#C8860A40] text-[#FDF6E390] px-10 py-4 text-xs tracking-[0.3em] uppercase font-medium hover:border-[#C8860A] hover:text-[#F5A623] transition-all duration-300 w-full sm:w-auto"
+            className="active-shrink border border-[#C8860A60] text-[#FDF6E3E6] px-10 py-5 sm:py-4 text-[10px] sm:text-xs tracking-[0.3em] uppercase font-semibold hover:border-[#C8860A] hover:text-[#F5A623] transition-all duration-300 w-full sm:w-[240px] glass-light"
           >
             Our Story
           </button>
         </div>
 
-        {/* Stats */}
-        <div className="mt-20 grid grid-cols-3 gap-6 md:gap-12 max-w-2xl mx-auto animate-fadeUp opacity-0 delay-500" style={{ animationFillMode: 'forwards' }}>
+        {/* Stats - Horizontal scroll on mobile or grid */}
+        <div className="mt-16 sm:mt-24 grid grid-cols-3 gap-4 sm:gap-12 w-full max-w-2xl mx-auto animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.7s' }}>
           {[
             { value: '1,500+', label: 'Meters Altitude' },
             { value: '100%', label: 'Raw & Natural' },
-            { value: '12+', label: 'Floral Varieties' },
+            { value: '12+', label: 'Varieties' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="serif text-2xl md:text-3xl font-semibold gold-text mb-1">{stat.value}</div>
-              <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#FDF6E350]">{stat.label}</div>
+              <div className="serif text-xl sm:text-2xl md:text-3xl font-semibold gold-text mb-1">{stat.value}</div>
+              <div className="text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-[#FDF6E350]">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fadeIn opacity-0 delay-600" style={{ animationFillMode: 'forwards' }}>
+      {/* Scroll indicator - hidden on small mobile to save space */}
+      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 animate-fadeIn opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '1s' }}>
         <span className="text-[9px] tracking-[0.3em] uppercase text-[#C8860A60]">Scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-[#C8860A] to-transparent animate-pulse" />
       </div>

@@ -80,7 +80,7 @@ export default function Process() {
   const { ref, inView } = useInView();
 
   return (
-    <section id="process" className="py-24 md:py-36 bg-[#0B0703] relative overflow-hidden">
+    <section id="process" className="section-py bg-[#0B0703] relative overflow-hidden">
       {/* Large background image with heavy overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -93,7 +93,7 @@ export default function Process() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B0703] via-transparent to-[#0B0703]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto container-px relative z-10">
         {/* Header */}
         <div ref={ref} className={`text-center mb-16 md:mb-24 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-6">

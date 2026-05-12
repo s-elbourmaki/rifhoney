@@ -131,19 +131,19 @@ export default function Collection() {
   };
 
   return (
-    <section id="collection" className="py-24 md:py-36 bg-[#0D0903]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="collection" className="section-py bg-[#0D0903]">
+      <div className="max-w-7xl mx-auto container-px">
         {/* Header */}
-        <div ref={ref} className={`text-center mb-16 md:mb-20 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="h-px w-12 bg-[#C8860A]" />
+            <span className="h-px w-8 sm:w-12 bg-[#C8860A]" />
             <span className="text-[10px] tracking-[0.4em] uppercase text-[#C8860A]">Artisan Selection</span>
-            <span className="h-px w-12 bg-[#C8860A]" />
+            <span className="h-px w-8 sm:w-12 bg-[#C8860A]" />
           </div>
-          <h2 className="serif text-4xl md:text-5xl lg:text-6xl font-light text-[#FDF6E3] mb-4">
+          <h2 className="serif text-4xl sm:text-5xl lg:text-6xl font-light text-[#FDF6E3] mb-4">
             The <em className="gold-text not-italic font-medium">Collection</em>
           </h2>
-          <p className="text-[#FDF6E350] text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+          <p className="text-[#FDF6E350] text-sm md:text-base max-w-xl mx-auto leading-relaxed px-4">
             Each variety tells a story of altitude, season, and flora — crafted by nature, curated by our master beekeepers.
           </p>
         </div>
@@ -187,11 +187,17 @@ export default function Collection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#150E05] via-transparent to-transparent opacity-80" />
 
-                  {/* Hover overlay */}
-                  <div className={`absolute inset-0 flex items-center justify-center bg-[#0F0A04CC] transition-opacity duration-500 ${hoveredId === product.id ? 'opacity-100' : 'opacity-0'}`}>
-                    <p className="text-[#FDF6E390] text-xs leading-relaxed text-center px-6 max-w-[240px]">
+                  {/* Hover overlay - simplified for mobile (clickable info) */}
+                  <div 
+                    className={`absolute inset-0 flex flex-col items-center justify-center bg-[#0F0A04E6] transition-opacity duration-500 ${hoveredId === product.id ? 'opacity-100' : 'opacity-0'}`}
+                    onClick={() => setHoveredId(hoveredId === product.id ? null : product.id)}
+                  >
+                    <p className="text-[#FDF6E3] text-xs leading-relaxed text-center px-8 font-medium">
                       {product.description}
                     </p>
+                    <div className="mt-4 text-[9px] tracking-[0.2em] text-[#C8860A] uppercase font-bold md:hidden">
+                      Tap to dismiss
+                    </div>
                   </div>
                 </div>
 
@@ -220,25 +226,25 @@ export default function Collection() {
                     </div>
                     <button
                       onClick={() => handleAdd(product)}
-                      className={`relative flex items-center gap-2 px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase font-semibold transition-all duration-400 overflow-hidden ${
+                      className={`relative flex items-center gap-2 px-6 py-4 sm:px-5 sm:py-2.5 text-[10px] tracking-[0.2em] uppercase font-bold transition-all duration-400 overflow-hidden active-shrink ${
                         isAdding
                           ? 'bg-[#1B5E20] text-[#A5D6A7] scale-105'
-                          : 'gold-gradient text-[#1A1208] hover:opacity-90 hover:scale-105 active:scale-95'
+                          : 'gold-gradient text-[#1A1208] hover:opacity-90'
                       }`}
                     >
                       {isAdding ? (
                         <>
-                          <svg className="w-3.5 h-3.5 animate-[scaleIn_0.3s_ease]" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
                           </svg>
-                          Added!
+                          Added
                         </>
                       ) : (
                         <>
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                           </svg>
-                          {qty > 0 ? `Add More` : `Add to Cart`}
+                          {qty > 0 ? `Add More` : `Add`}
                         </>
                       )}
                     </button>

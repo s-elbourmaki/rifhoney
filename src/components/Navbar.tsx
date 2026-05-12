@@ -23,7 +23,16 @@ export default function Navbar() {
   const scrollTo = (href: string) => {
     setMenuOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      const headerOffset = scrolled ? 80 : 100; // Account for fixed header height
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -102,38 +111,41 @@ export default function Navbar() {
                 Shop Now
               </a>
 
-              {/* Mobile hamburger */}
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="md:hidden p-2 text-[#FDF6E380] hover:text-[#F5A623] transition-colors"
-                aria-label="Toggle menu"
-                aria-expanded={menuOpen}
-              >
-                <div className="w-5 h-4 flex flex-col justify-between">
-                  <span className={`block h-px w-full bg-current transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[7.5px]' : ''}`}/>
-                  <span className={`block h-px w-full bg-current transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`}/>
-                  <span className={`block h-px w-full bg-current transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-[7.5px]' : ''}`}/>
-                </div>
-              </button>
-            </div>
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden p-3 -mr-2 text-[#FDF6E380] hover:text-[#F5A623] transition-colors active-shrink"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span className={`block h-0.5 w-full bg-current transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[9px]' : ''}`}/>
+                <span className={`block h-0.5 w-full bg-current transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`}/>
+                <span className={`block h-0.5 w-full bg-current transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-[9px]' : ''}`}/>
+              </div>
+            </button>
           </div>
         </div>
-      </nav>
+      </div>
+    </nav>
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 glass transition-all duration-500 ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 z-40 glass transition-all duration-500 flex flex-col items-center justify-center ${
+          menuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
         }`}
+        style={{ height: 'calc(var(--vh, 1vh) * 100)' }}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-8 pt-20">
+        <div className="flex flex-col items-center gap-10">
           {navLinks.map((link, i) => (
             <a
               key={link.label}
               href={link.href}
               onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
-              className="serif text-3xl font-light tracking-widest text-[#FDF6E3] hover:text-[#F5A623] transition-colors"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={`serif text-4xl font-light tracking-[0.2em] text-[#FDF6E3] hover:text-[#F5A623] transition-all duration-500 ${
+                menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              }`}
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
               {link.label}
             </a>
@@ -141,10 +153,20 @@ export default function Navbar() {
           <a
             href="#collection"
             onClick={(e) => { e.preventDefault(); scrollTo('#collection'); }}
-            className="mt-4 px-10 py-4 gold-gradient text-[#1A1208] text-sm font-semibold tracking-[0.2em] uppercase"
+            className={`mt-6 px-12 py-5 gold-gradient text-[#1A1208] text-sm font-bold tracking-[0.25em] uppercase active-shrink transition-all duration-500 ${
+              menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}
+            style={{ transitionDelay: `${navLinks.length * 100}ms` }}
           >
             Shop Now
           </a>
+        </div>
+
+        {/* Decorative element for mobile menu */}
+        <div className="absolute bottom-12 opacity-5">
+           <svg viewBox="0 0 100 100" className="w-32 h-32 animate-float">
+             <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="none" stroke="#C8860A" strokeWidth="1" />
+           </svg>
         </div>
       </div>
     </>

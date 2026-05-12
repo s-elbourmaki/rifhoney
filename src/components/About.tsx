@@ -17,8 +17,8 @@ export default function About() {
   const { ref, inView } = useInView();
 
   return (
-    <section id="about" className="py-24 md:py-36 bg-[#0F0A04]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-py bg-[#0D0903]">
+      <div className="max-w-7xl mx-auto container-px">
         <div ref={ref} className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Images column */}
           <div className={`relative transition-all duration-1000 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
@@ -34,8 +34,8 @@ export default function About() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F0A0480] to-transparent" />
               </div>
 
-              {/* Floating image */}
-              <div className="absolute -bottom-10 -right-4 md:-right-10 w-36 md:w-52 h-36 md:h-52 overflow-hidden border-4 border-[#0F0A04] shadow-2xl animate-float" style={{ animationDelay: '1s' }}>
+              {/* Floating image - hidden on small mobile to reduce clutter */}
+              <div className="hidden xs:block absolute -bottom-10 -right-4 md:-right-10 w-36 md:w-52 h-36 md:h-52 overflow-hidden border-4 border-[#0F0A04] shadow-2xl animate-float" style={{ animationDelay: '1s' }}>
                 <img
                   src="/images/about-bees.jpg"
                   alt="Honey bees on honeycomb — RIF HONEY"
