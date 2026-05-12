@@ -70,7 +70,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto container-px py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
           <p className="text-[#FDF6E320] text-[10px] sm:text-xs tracking-wider text-center md:text-left leading-relaxed">
-            &copy; {year} RIF HONEY. All rights reserved.<br className="sm:hidden" /> Chakrane Mountains, Morocco.
+            &copy; {year} RIF HONEY. All rights reserved.<br className="sm:hidden" /> Chakrane Mountains, Morocco. 
+            <span className="mx-2 hidden md:inline">|</span> 
+            <br className="md:hidden" />
+            Built by <a href="https://salim1-ai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#C8860A] hover:text-[#F5A623] transition-colors">salim.dev</a>
           </p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-[#FDF6E330] text-xs hover:text-[#F5A623] transition-colors">Privacy Policy</a>
