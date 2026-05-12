@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="#C8860A" stroke="#8B5E0A" stroke-width="2"/>
+  <polygon points="50,20 75,32.5 75,57.5 50,70 25,57.5 25,32.5" fill="#F5A623" opacity="0.8"/>
+  <text x="50" y="50" font-family="serif" font-size="22" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold">RH</text>
+</svg>
