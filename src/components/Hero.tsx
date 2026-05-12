@@ -149,14 +149,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
-        {/* Tagline badge */}
-        <div className="inline-flex items-center gap-3 mb-8 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards' }}>
-          <span className="h-px w-8 bg-[#C8860A]" />
-          <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-[#C8860A] font-medium">
-            Chakrane Mountains · Pure · Artisanal
-          </span>
-          <span className="h-px w-8 bg-[#C8860A]" />
-        </div>
 
         {/* Main Headline */}
         <h1 className="serif font-light text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none mb-6 animate-fadeUp opacity-0 delay-100" style={{ animationFillMode: 'forwards' }}>
