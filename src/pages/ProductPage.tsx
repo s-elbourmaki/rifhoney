@@ -55,12 +55,12 @@ export default function ProductPage() {
       <main className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto container-px">
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 mb-12 text-[10px] tracking-[0.2em] uppercase text-[#FDF6E340]">
+          <nav className="flex items-center gap-2 mb-12 text-[10px] tracking-[0.2em] uppercase text-[#FDF6E380]">
             <Link to="/" className="hover:text-[#F5A623] transition-colors">Home</Link>
             <span>/</span>
             <Link to="/#collection" className="hover:text-[#F5A623] transition-colors">Collection</Link>
             <span>/</span>
-            <span className="text-[#FDF6E380]">{product.name}</span>
+            <span className="text-[#FDF6E3]">{product.name}</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
@@ -94,9 +94,9 @@ export default function ProductPage() {
                 <h1 className="serif text-5xl sm:text-6xl font-light text-[#FDF6E3] mb-6 leading-tight">{product.name}</h1>
                 <div className="flex items-baseline gap-3 mb-8">
                   <span className="serif text-4xl font-medium gold-text">{currentPrice}</span>
-                  <span className="text-xs tracking-widest uppercase text-[#FDF6E340]">DH</span>
+                  <span className="text-xs tracking-widest uppercase text-[#FDF6E380]">DH</span>
                 </div>
-                <p className="text-[#FDF6E380] text-sm sm:text-base leading-relaxed mb-10 max-w-xl">
+                <p className="text-[#FDF6E3] text-sm sm:text-base leading-relaxed mb-10 max-w-xl">
                   {product.description}
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default function ProductPage() {
               {/* Weight Selector */}
               <div className="mb-10">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] tracking-[0.3em] uppercase text-[#FDF6E360]">Select Weight</span>
+                  <span className="text-[10px] tracking-[0.3em] uppercase text-[#FDF6E3]">Select Weight</span>
                   <span className="text-[10px] tracking-[0.1em] text-[#C8860A80]">Free shipping across Morocco</span>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
@@ -115,7 +115,7 @@ export default function ProductPage() {
                       className={`py-4 text-xs tracking-[0.2em] uppercase border transition-all duration-300 relative overflow-hidden ${
                         selectedWeight === w
                           ? 'border-[#C8860A] text-[#FDF6E3] bg-[#C8860A15]'
-                          : 'border-[#C8860A15] text-[#FDF6E340] hover:border-[#C8860A40]'
+                          : 'border-[#C8860A15] text-[#FDF6E380] hover:border-[#C8860A40]'
                       }`}
                     >
                       {w}
@@ -163,7 +163,7 @@ export default function ProductPage() {
                 {product.benefits.map((benefit) => (
                   <div key={benefit} className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8860A]" />
-                    <span className="text-[11px] tracking-wide text-[#FDF6E380] uppercase">{benefit}</span>
+                    <span className="text-[11px] tracking-wide text-[#FDF6E3] uppercase">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -185,7 +185,7 @@ export default function ProductPage() {
                   <svg className="absolute -top-10 -left-10 w-20 h-20 text-[#C8860A08]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V21H14.017ZM6.017 21L6.017 18C6.017 16.8954 6.91243 16 8.017 16H11.017C11.5693 16 12.017 15.5523 12.017 15V9C12.017 8.44772 11.5693 8 11.017 8H7.017C6.46472 8 6.017 8.44772 6.017 9V11C6.017 11.5523 5.56929 12 5.017 12H4.017V21H6.017Z" />
                   </svg>
-                  <p className="serif text-xl sm:text-2xl font-light text-[#FDF6E3CC] leading-relaxed italic">
+                  <p className="serif text-xl sm:text-2xl font-light text-[#FDF6E3] leading-relaxed italic">
                     {product.expertReview}
                   </p>
                 </div>
@@ -202,7 +202,7 @@ export default function ProductPage() {
                 <span className="h-px w-8 bg-[#C8860A]" />
               </div>
               <h2 className="serif text-4xl font-light text-[#FDF6E3] mb-6">Explore the <em className="gold-text not-italic font-medium">Unknown</em></h2>
-              <p className="text-[#FDF6E360] text-sm max-w-2xl mx-auto leading-relaxed">
+              <p className="text-[#FDF6E3] text-sm max-w-2xl mx-auto leading-relaxed">
                 Nature's palette is endless. Each jar in our collection tells a unique story of a different peak, a different flower, and a different soul. Which chapter will you open next?
               </p>
             </div>
@@ -232,7 +232,7 @@ export default function ProductPage() {
                       <h3 className="serif text-xl font-medium text-[#FDF6E3] group-hover:text-[#F5A623] transition-colors">{related.name}</h3>
                       <div className="mt-4 flex items-center justify-between">
                         <span className="text-xs gold-text font-medium">From {related.prices['250g']} DH</span>
-                        <span className="text-[10px] tracking-widest uppercase text-[#FDF6E340] group-hover:text-[#FDF6E3] transition-colors">Discover →</span>
+                        <span className="text-[10px] tracking-widest uppercase text-[#FDF6E380] group-hover:text-[#FDF6E3] transition-colors">Discover →</span>
                       </div>
                     </div>
                   </Link>
@@ -245,18 +245,18 @@ export default function ProductPage() {
              <div>
                 <h3 className="text-[11px] tracking-[0.4em] uppercase text-[#C8860A] mb-6">How to enjoy</h3>
                 <h2 className="serif text-4xl font-light mb-8">The Perfect Pairing</h2>
-                <p className="text-[#FDF6E380] leading-relaxed mb-0">
+                <p className="text-[#FDF6E3] leading-relaxed mb-0">
                   {product.usage}
                 </p>
              </div>
              <div className="grid grid-cols-2 gap-4">
                 <div className="aspect-square bg-[#0F0A04] border border-[#C8860A10] flex flex-col items-center justify-center p-6 text-center">
                    <span className="serif text-2xl gold-text mb-2">100%</span>
-                   <span className="text-[9px] tracking-[0.2em] uppercase text-[#FDF6E340]">Unprocessed Raw</span>
+                   <span className="text-[9px] tracking-[0.2em] uppercase text-[#FDF6E380]">Unprocessed Raw</span>
                 </div>
                 <div className="aspect-square bg-[#0F0A04] border border-[#C8860A10] flex flex-col items-center justify-center p-6 text-center">
                    <span className="serif text-2xl gold-text mb-2">High</span>
-                   <span className="text-[9px] tracking-[0.2em] uppercase text-[#FDF6E340]">Altitude Pure</span>
+                   <span className="text-[9px] tracking-[0.2em] uppercase text-[#FDF6E380]">Altitude Pure</span>
                 </div>
              </div>
           </section>

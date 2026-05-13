@@ -101,7 +101,7 @@ export default function Testimonials() {
 
                 <div>
                   <div className="text-[11px] sm:text-sm font-bold text-[#F5A623] tracking-widest uppercase">{t.author}</div>
-                  <div className="text-[10px] sm:text-xs text-[#FDF6E340] tracking-widest mt-1.5">{t.location}</div>
+                  <div className="text-[10px] sm:text-xs text-[#FDF6E380] tracking-widest mt-1.5">{t.location}</div>
                 </div>
               </div>
             </div>

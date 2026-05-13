@@ -43,7 +43,7 @@ export default function Farm() {
           <div className={`order-2 lg:order-1 transition-all duration-1000 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-8 bg-[#C8860A]" />
-              <span className="text-[10px] tracking-[0.4em] uppercase text-[#C8860A]">The Apiaries</span>
+              <span className="text-[11px] tracking-[0.4em] uppercase text-[#C8860A]">The Apiaries</span>
             </div>
 
             <h2 className="serif text-4xl md:text-5xl lg:text-6xl font-light text-[#FDF6E3] leading-tight mb-6">
@@ -51,11 +51,11 @@ export default function Farm() {
               <em className="gold-text not-italic font-medium">Mountain</em>
             </h2>
 
-            <p className="text-[#FDF6E370] text-sm md:text-base leading-relaxed mb-6">
+            <p className="text-[#FDF6E3] text-sm md:text-base leading-relaxed mb-6">
               Our four apiaries are positioned at strategic altitudes across the Chakrane highlands — each chosen for its exceptional biodiversity, pristine water sources, and distance from any human pollution. Our Apis mellifera intermissa bees, a rare native Moroccan subspecies, are perfectly adapted to these harsh mountain conditions.
             </p>
 
-            <p className="text-[#FDF6E370] text-sm md:text-base leading-relaxed mb-10">
+            <p className="text-[#FDF6E3] text-sm md:text-base leading-relaxed mb-10">
               We practice traditional, low-intervention beekeeping: no antibiotics, no sugar feeding, no artificial insemination. Our bees live and forage as they have for thousands of years — free, wild, and sovereign.
             </p>
 
@@ -69,9 +69,9 @@ export default function Farm() {
                 >
                   <div className="flex items-baseline gap-1">
                     <span className="serif text-2xl md:text-3xl font-semibold gold-text">{stat.value}</span>
-                    <span className="text-[10px] tracking-widest uppercase text-[#F5A62380] font-medium">{stat.unit}</span>
+                    <span className="text-[11px] tracking-widest uppercase text-[#F5A62380] font-medium">{stat.unit}</span>
                   </div>
-                  <p className="text-[#FDF6E340] text-xs mt-1 leading-relaxed">{stat.desc}</p>
+                  <p className="text-[#FDF6E380] text-xs mt-1 leading-relaxed">{stat.desc}</p>
                 </div>
               ))}
             </div>

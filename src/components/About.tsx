@@ -65,7 +65,7 @@ export default function About() {
           <div className={`transition-all duration-1000 delay-200 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-8 bg-[#C8860A]" />
-              <span className="text-[10px] tracking-[0.4em] uppercase text-[#C8860A]">Our Heritage</span>
+              <span className="text-[11px] tracking-[0.4em] uppercase text-[#C8860A]">Our Heritage</span>
             </div>
 
             <h2 className="serif text-4xl md:text-5xl lg:text-6xl font-light text-[#FDF6E3] leading-tight mb-6">
@@ -73,11 +73,11 @@ export default function About() {
               <em className="gold-text font-medium not-italic">Perfects</em> the Art
             </h2>
 
-            <p className="text-[#FDF6E370] leading-relaxed mb-6 text-base md:text-lg lg:text-xl">
+            <p className="text-[#FDF6E3] leading-relaxed mb-6 text-base md:text-lg lg:text-xl">
               Nestled deep within the Chakrane Mountains of Morocco's breathtaking Rif region, our family has cultivated a sacred relationship with the land for generations. At elevations exceeding 1,500 meters, our bees roam freely across some of North Africa's most pristine and biodiverse landscapes.
             </p>
 
-            <p className="text-[#FDF6E370] leading-relaxed mb-10 text-base md:text-lg lg:text-xl">
+            <p className="text-[#FDF6E3] leading-relaxed mb-10 text-base md:text-lg lg:text-xl">
               The unique combination of cedar forests, wild thyme, mountain lavender, and rare alpine flora imparts an extraordinary complexity to our honey — a terroir as distinctive and celebrated as the world's finest wines.
             </p>
 
@@ -95,8 +95,8 @@ export default function About() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-[#F5A623] text-xs tracking-widest uppercase font-semibold">{item.title}</span>
-                    <p className="text-[#FDF6E360] text-sm mt-0.5">{item.desc}</p>
+                    <span className="text-[#F5A623] text-[13px] tracking-widest uppercase font-semibold">{item.title}</span>
+                    <p className="text-[#FDF6E3] text-sm mt-0.5">{item.desc}</p>
                   </div>
                 </div>
               ))}

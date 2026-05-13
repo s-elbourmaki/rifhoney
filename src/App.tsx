@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
+import CataloguePage from './pages/CataloguePage';
 import { useResponsive } from './utils/useResponsive';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/product/:slug" element={<ProductPage />} />
+            <Route path="/catalogue" element={<CataloguePage />} />
           </Routes>
         </div>
       </Router>

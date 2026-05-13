@@ -28,12 +28,12 @@
     /* Prevent horizontal overflow globally */
     overflow-x: hidden;
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   @media (min-width: 768px) {
     html {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
 
@@ -56,10 +56,6 @@
 
 @layer components {
   .serif {
-    font-family: 'Cormorant Garamond', serif;
-  }
-
-  .sans {
     font-family: 'Cormorant Garamond', serif;
   }
 
@@ -119,15 +115,58 @@
       border-radius: 3px;
     }
   }
-}
+  /* Mobile-first spacing utilities */
+  .container-px {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 
-/* Mobile-first spacing utilities */
-.container-px {
-  @apply px-5 sm:px-8 md:px-12 lg:px-20;
-}
+  @media (min-width: 640px) {
+    .container-px {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
 
-.section-py {
-  @apply py-16 sm:py-20 md:py-28 lg:py-36;
+  @media (min-width: 768px) {
+    .container-px {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-px {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+  }
+
+  .section-py {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-py {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-py {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-py {
+      padding-top: 9rem;
+      padding-bottom: 9rem;
+    }
+  }
 }
 
 /* Animations */

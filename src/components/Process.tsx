@@ -106,7 +106,7 @@ export default function Process() {
           <h2 className="serif text-4xl md:text-5xl lg:text-6xl font-light text-[#FDF6E3] mb-4">
             The <em className="gold-text not-italic font-medium">Process</em>
           </h2>
-          <p className="text-[#FDF6E350] text-sm md:text-base max-w-xl mx-auto">
+          <p className="text-[#FDF6E3] text-sm md:text-base max-w-xl mx-auto">
             Six meticulous steps that transform mountain nectar into liquid gold — with zero shortcuts.
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function Process() {
                 </div>
               </div>
               <h3 className="serif text-xl md:text-2xl font-medium text-[#FDF6E3] mb-3">{step.title}</h3>
-              <p className="text-[#FDF6E350] text-sm leading-relaxed">{step.desc}</p>
+              <p className="text-[#FDF6E3] text-sm leading-relaxed">{step.desc}</p>
             </div>
           ))}
         </div>

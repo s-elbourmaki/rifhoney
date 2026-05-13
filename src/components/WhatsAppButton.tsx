@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      href={getWhatsAppUrl('Hello RIF HONEY! I would like to know more about your products 🍯')}
+      href={getWhatsAppUrl('Hello RIF HONEY! I would like to know more about your products')}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"

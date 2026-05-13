@@ -50,7 +50,7 @@ export default function Contact() {
               <em className="gold-text not-italic font-medium">Difference</em>
             </h2>
 
-            <p className="text-[#FDF6E370] text-sm md:text-base leading-relaxed mb-12">
+            <p className="text-[#FDF6E3] text-sm md:text-base leading-relaxed mb-12">
               Whether you want to place a wholesale order, visit our mountain farm, or simply learn more about our honey, we would love to hear from you.
             </p>
 
@@ -92,7 +92,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-[10px] tracking-[0.25em] uppercase text-[#C8860A80] mb-1">{item.label}</div>
-                    <div className="text-[#FDF6E390] text-sm">{item.value}</div>
+                    <div className="text-[#FDF6E3] text-sm">{item.value}</div>
                   </div>
                 </div>
               ))}
@@ -111,7 +111,7 @@ export default function Contact() {
                   Subscribe
                 </button>
               </div>
-              <p className="text-[10px] text-[#FDF6E330] mt-2">Harvest stories, seasonal offers, and beekeeper wisdom.</p>
+              <p className="text-[10px] text-[#FDF6E370] mt-2">Harvest stories, seasonal offers, and beekeeper wisdom.</p>
             </div>
           </div>
 
@@ -129,7 +129,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <p className="serif text-xl text-[#F5A623]">Message Sent</p>
-                  <p className="text-[#FDF6E360] text-sm mt-2">We will respond within 24 hours.</p>
+                  <p className="text-[#FDF6E3] text-sm mt-2">We will respond within 24 hours.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -163,7 +163,7 @@ export default function Contact() {
                     <select
                       value={form.subject}
                       onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                      className="w-full bg-[#1A1208] border border-[#C8860A25] px-4 py-3 text-[#FDF6E390] text-sm focus:outline-none focus:border-[#C8860A] transition-colors appearance-none cursor-pointer"
+                      className="w-full bg-[#1A1208] border border-[#C8860A25] px-4 py-3 text-[#FDF6E3] text-sm focus:outline-none focus:border-[#C8860A] transition-colors appearance-none cursor-pointer"
                     >
                       <option value="">Select a topic</option>
                       <option value="order">Place an Order</option>

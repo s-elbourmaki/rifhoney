@@ -2,12 +2,19 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useCart } from '../context/CartContext';
 import { getWhatsAppUrl } from './WhatsAppButton';
 
+const SHIPPING_THRESHOLD = 400;
+const SHIPPING_COST = 40;
+
 export default function CartDrawer() {
   const { items, isOpen, closeCart, totalItems, totalPrice, updateQuantity, removeItem, clearCart } = useCart();
   const drawerRef = useRef<HTMLDivElement>(null);
 
   // Build WhatsApp order message and open chat
   const handleCheckout = useCallback(() => {
+    const isFreeShipping = totalPrice >= SHIPPING_THRESHOLD;
+    const finalShipping = isFreeShipping ? 0 : SHIPPING_COST;
+    const finalTotal = totalPrice + finalShipping;
+
     const itemLines = items
       .map(
         (item, i) =>
@@ -16,17 +23,19 @@ export default function CartDrawer() {
       .join('\n');
 
     const message = [
-      `🍯 *New Order — RIF HONEY*`,
+      `*NEW ORDER — RIF HONEY*`,
       `━━━━━━━━━━━━━━━━━━`,
       ``,
       itemLines,
       ``,
       `━━━━━━━━━━━━━━━━━━`,
-      `📦 Items: ${totalItems}`,
-      `💰 *Total: ${totalPrice} DH*`,
-      `🚚 Shipping: Free`,
+      `Order Summary:`,
+      `Items: ${totalItems}`,
+      `Subtotal: ${totalPrice} DH`,
+      `Shipping: ${isFreeShipping ? 'Free' : `${SHIPPING_COST} DH`}`,
+      `Total: ${finalTotal} DH`,
       ``,
-      `Please confirm my order. Thank you!`,
+      `Please confirm my order. Thank you.`,
     ].join('\n');
 
     window.open(getWhatsAppUrl(message), '_blank', 'noopener,noreferrer');
@@ -90,7 +99,7 @@ export default function CartDrawer() {
           </div>
           <button
             onClick={closeCart}
-            className="p-3 -mr-2 text-[#FDF6E340] hover:text-[#F5A623] transition-colors duration-300 active-shrink"
+            className="p-3 -mr-2 text-[#FDF6E380] hover:text-[#F5A623] transition-colors duration-300 active-shrink"
             aria-label="Close cart"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -101,6 +110,27 @@ export default function CartDrawer() {
 
         {/* Items List */}
         <div className="flex-1 overflow-y-auto px-5 py-6 cart-scroll">
+          {items.length > 0 && (
+            <div className="mb-8 p-4 bg-[#C8860A08] border border-[#C8860A15]">
+              <div className="flex justify-between items-end mb-2">
+                <span className="text-[10px] tracking-widest uppercase text-[#FDF6E3]">
+                  {totalPrice >= SHIPPING_THRESHOLD 
+                    ? 'You have qualified for FREE shipping' 
+                    : `Add ${SHIPPING_THRESHOLD - totalPrice} DH more for FREE shipping`}
+                </span>
+                <span className="text-[10px] font-bold text-[#C8860A]">
+                  {Math.min(100, (totalPrice / SHIPPING_THRESHOLD) * 100).toFixed(0)}%
+                </span>
+              </div>
+              <div className="h-1 bg-[#C8860A10] rounded-full overflow-hidden">
+                <div 
+                  className="h-full gold-gradient transition-all duration-700 ease-out"
+                  style={{ width: `${Math.min(100, (totalPrice / SHIPPING_THRESHOLD) * 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
+
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center gap-6 py-12">
               <div
@@ -115,8 +145,8 @@ export default function CartDrawer() {
                 </svg>
               </div>
               <div className="px-4">
-                <p className="serif text-2xl text-[#FDF6E360] mb-3">Your cart is empty</p>
-                <p className="text-xs text-[#FDF6E330] tracking-wide leading-relaxed max-w-[260px] mx-auto">
+                <p className="serif text-2xl text-[#FDF6E3] mb-3">Your cart is empty</p>
+                <p className="text-xs text-[#FDF6E370] tracking-wide leading-relaxed max-w-[260px] mx-auto">
                   Explore our collection and discover nature's finest golden treasures.
                 </p>
               </div>
@@ -141,6 +171,7 @@ export default function CartDrawer() {
                       src={item.image}
                       alt={item.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
                     />
                   </div>
 
@@ -208,17 +239,21 @@ export default function CartDrawer() {
             {/* Subtotal rows */}
             <div className="flex flex-col gap-2.5 mb-6">
               <div className="flex items-center justify-between">
-                <span className="text-xs tracking-wider uppercase text-[#FDF6E350]">Subtotal</span>
+                <span className="text-xs tracking-wider uppercase text-[#FDF6E3]">Subtotal</span>
                 <span className="serif text-lg text-[#FDF6E3]">{totalPrice} DH</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs tracking-wider uppercase text-[#FDF6E350]">Shipping</span>
-                <span className="text-xs tracking-wider uppercase text-[#C8860A80] font-medium">Free</span>
+                <span className="text-xs tracking-wider uppercase text-[#FDF6E3]">Shipping</span>
+                <span className={`text-xs tracking-wider uppercase ${totalPrice >= SHIPPING_THRESHOLD ? 'text-[#C8860A] font-bold' : 'text-[#FDF6E3]'}`}>
+                  {totalPrice >= SHIPPING_THRESHOLD ? 'Free' : `${SHIPPING_COST} DH`}
+                </span>
               </div>
               <hr className="border-0 h-px bg-[#C8860A15] my-1" />
               <div className="flex items-center justify-between">
                 <span className="text-sm tracking-widest uppercase text-[#FDF6E3] font-bold">Total</span>
-                <span className="serif text-2xl font-bold gold-text">{totalPrice} DH</span>
+                <span className="serif text-2xl font-bold gold-text">
+                  {totalPrice + (totalPrice >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST)} DH
+                </span>
               </div>
             </div>
 
@@ -240,19 +275,19 @@ export default function CartDrawer() {
 
             {/* Trust Badges */}
             <div className="flex items-center justify-center gap-4 mt-4">
-              <span className="text-[9px] tracking-wider uppercase text-[#FDF6E320] flex items-center gap-1">
+              <span className="text-[9px] tracking-wider uppercase text-[#FDF6E360] flex items-center gap-1">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                 </svg>
                 Secure
               </span>
-              <span className="text-[9px] tracking-wider uppercase text-[#FDF6E320] flex items-center gap-1">
+              <span className="text-[9px] tracking-wider uppercase text-[#FDF6E360] flex items-center gap-1">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H21M3.375 14.25h14.25m0 0V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v9.375m16.5 0h.375a1.125 1.125 0 011.125 1.125v2.25" />
                 </svg>
                 Free Shipping
               </span>
-              <span className="text-[9px] tracking-wider uppercase text-[#FDF6E320] flex items-center gap-1">
+              <span className="text-[9px] tracking-wider uppercase text-[#FDF6E360] flex items-center gap-1">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                 </svg>

@@ -62,7 +62,7 @@ export default function Benefits() {
           <h2 className="serif text-4xl md:text-5xl lg:text-6xl font-light text-[#FDF6E3] mb-4">
             Why Raw Honey <em className="gold-text not-italic font-medium">Matters</em>
           </h2>
-          <p className="text-[#FDF6E350] text-sm md:text-base max-w-2xl mx-auto">
+          <p className="text-[#FDF6E3] text-sm md:text-base max-w-2xl mx-auto">
             Unlike processed honey heated above 70°C, raw mountain honey retains its full biological complexity — a living food with genuine therapeutic properties.
           </p>
         </div>
@@ -84,7 +84,7 @@ export default function Benefits() {
               <div className="h-px w-8 bg-gradient-to-r from-[#C8860A] to-transparent mb-5 group-hover:w-16 transition-all duration-500" />
 
               <h3 className="serif text-xl font-medium text-[#FDF6E3] mb-3">{benefit.title}</h3>
-              <p className="text-[#FDF6E360] text-sm leading-relaxed mb-4">{benefit.desc}</p>
+              <p className="text-[#FDF6E3] text-sm leading-relaxed mb-4">{benefit.desc}</p>
               <span className="text-[9px] tracking-[0.2em] uppercase text-[#C8860A] border border-[#C8860A30] px-3 py-1">
                 {benefit.detail}
               </span>

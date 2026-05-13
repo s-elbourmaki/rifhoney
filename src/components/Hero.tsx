@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 /**
@@ -6,7 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
  * The image loads instantly for fast first paint; the video is deferred.
  */
 
-const IMAGE_DISPLAY_DURATION = 5000; // ms to show the static image before swapping
+const VIDEO_DISPLAY_DURATION = 8000; // ms to show the video before swapping to image
+const IMAGE_DISPLAY_DURATION = 2000; // ms to show the static image (reduced)
 const CROSSFADE_DURATION = 1500;     // ms for the opacity transition
 
 export default function Hero() {
@@ -15,10 +16,9 @@ export default function Hero() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // 'image' = rif.png is visible, 'video' = vid.mp4 is visible
-  const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('image');
+  // 'video' = vid.mp4 is visible, 'image' = tick.jpeg is visible
+  const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('video');
   const [videoReady, setVideoReady] = useState(false);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Parallax scroll
@@ -32,37 +32,15 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Immediate video load
+  // Swap cycle logic: Cycle between video and image
   useEffect(() => {
-    setShouldLoadVideo(true);
-  }, []);
+    if (!videoReady) return;
 
-  // When video is loaded and ready
-  const handleCanPlay = useCallback(() => {
-    setVideoReady(true);
-  }, []);
-
-  // When video finishes playing → swap back to image
-  const handleVideoEnded = useCallback(() => {
-    setActiveMedia('image');
-  }, []);
-
-  // Swap cycle logic
-  useEffect(() => {
-    // When showing the image AND the video is ready, schedule a swap to video
-    if (activeMedia === 'image' && videoReady) {
-      timerRef.current = setTimeout(() => {
-        const video = videoRef.current;
-        if (video) {
-          video.currentTime = 0;
-          video.play().then(() => {
-            setActiveMedia('video');
-          }).catch(() => {
-            // Autoplay blocked — stay on image
-          });
-        }
-      }, IMAGE_DISPLAY_DURATION);
-    }
+    const duration = activeMedia === 'video' ? VIDEO_DISPLAY_DURATION : IMAGE_DISPLAY_DURATION;
+    
+    timerRef.current = setTimeout(() => {
+      setActiveMedia(prev => prev === 'video' ? 'image' : 'video');
+    }, duration);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -87,14 +65,14 @@ export default function Hero() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const showVideo = activeMedia === 'video';
+  const showVideo = activeMedia === 'video' && videoReady;
 
   return (
     <section id="hero" className="relative h-screen-dynamic flex items-center justify-center overflow-hidden">
       {/* Background Container */}
       <div ref={parallaxRef} className="absolute inset-0 z-0">
 
-        {/* Static Image — always in DOM */}
+        {/* Static Image — shown when video is not active or not ready */}
         <img
           src="/images/rif.png"
           alt="Premium RIF Honey from Chakrane Mountains"
@@ -114,9 +92,10 @@ export default function Hero() {
           ref={videoRef}
           muted
           playsInline
-          preload="none"
-          onCanPlay={handleCanPlay}
-          onEnded={handleVideoEnded}
+          loop
+          autoPlay
+          preload="auto"
+          onCanPlay={() => setVideoReady(true)}
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{
             opacity: showVideo ? 1 : 0,
@@ -124,12 +103,8 @@ export default function Hero() {
           }}
           aria-hidden="true"
         >
-          {shouldLoadVideo && (
-            <>
-              <source src="/images/vid.webm" type="video/webm" />
-              <source src="/images/vid.mp4" type="video/mp4" />
-            </>
-          )}
+          <source src="/images/vid.webm" type="video/webm" />
+          <source src="/images/vid.mp4" type="video/mp4" />
         </video>
 
         {/* Gradient overlays */}
@@ -158,17 +133,17 @@ export default function Hero() {
         {/* Main content centered */}
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           {/* Main Headline */}
-          <h1 className="serif font-light text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
+          <h1 className="serif font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
             <span className="gold-text font-bold">RIF</span>{' '}
             <span className="text-[#FDF6E3] font-light tracking-wider">HONEY</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-[#FDF6E3CC] text-xs sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
+          <p className="text-[#FDF6E3] text-xs sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
             Liquid Gold from the Heart of Morocco
           </p>
 
-          <p className="text-[#FDF6E380] text-base sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-md md:max-w-2xl mx-auto mb-6 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
+          <p className="text-[#FDF6E3] text-base sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-md md:max-w-2xl mx-auto mb-6 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
             Harvested by hand from wild mountain flora at altitudes above 1,500 meters — where pristine air and rare wildflowers create nature's finest nectar.
           </p>
         </div>
@@ -185,7 +160,7 @@ export default function Hero() {
             </button>
             <button
               onClick={scrollToAbout}
-              className="active-shrink border border-[#C8860A60] text-[#FDF6E3E6] px-3 sm:px-10 py-4 text-[9px] sm:text-xs tracking-[0.1em] sm:tracking-[0.3em] uppercase font-semibold hover:border-[#C8860A] hover:text-[#F5A623] transition-all duration-300 glass-light flex-1 max-w-[180px] sm:max-w-[240px] whitespace-nowrap"
+              className="active-shrink border border-[#C8860A60] text-[#FDF6E3] px-3 sm:px-10 py-4 text-[9px] sm:text-xs tracking-[0.1em] sm:tracking-[0.3em] uppercase font-semibold hover:border-[#C8860A] hover:text-[#F5A623] transition-all duration-300 glass-light flex-1 max-w-[180px] sm:max-w-[240px] whitespace-nowrap"
             >
               Our Story
             </button>
@@ -200,7 +175,7 @@ export default function Hero() {
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="serif text-xl sm:text-2xl md:text-3xl font-semibold gold-text mb-1">{stat.value}</div>
-                <div className="text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-[#FDF6E350]">{stat.label}</div>
+                <div className="text-[8px] sm:text-[10px] tracking-[0.2em] uppercase text-[#FDF6E3]">{stat.label}</div>
               </div>
             ))}
           </div>
