@@ -32,12 +32,9 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Deferred video load — don't block first paint
+  // Immediate video load
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShouldLoadVideo(true);
-    }, 2000); // 2s delay before starting video load
-    return () => clearTimeout(timer);
+    setShouldLoadVideo(true);
   }, []);
 
   // When video is loaded and ready
@@ -161,17 +158,17 @@ export default function Hero() {
         {/* Main content centered */}
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           {/* Main Headline */}
-          <h1 className="serif font-light text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
+          <h1 className="serif font-light text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-none mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.1s' }}>
             <span className="gold-text font-bold">RIF</span>{' '}
             <span className="text-[#FDF6E3] font-light tracking-wider">HONEY</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-[#FDF6E3CC] text-[10px] sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
+          <p className="text-[#FDF6E3CC] text-xs sm:text-xs md:text-sm lg:text-base tracking-[0.25em] uppercase mb-4 sm:mb-6 animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.25s' }}>
             Liquid Gold from the Heart of Morocco
           </p>
 
-          <p className="text-[#FDF6E380] text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-md md:max-w-2xl mx-auto mb-6 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
+          <p className="text-[#FDF6E380] text-base sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-md md:max-w-2xl mx-auto mb-6 tracking-wide animate-fadeUp opacity-0" style={{ animationFillMode: 'forwards', animationDelay: '0.4s' }}>
             Harvested by hand from wild mountain flora at altitudes above 1,500 meters — where pristine air and rare wildflowers create nature's finest nectar.
           </p>
         </div>

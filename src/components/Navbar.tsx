@@ -64,7 +64,7 @@ export default function Navbar() {
               className="flex items-center gap-4 group"
               aria-label="RIF HONEY Home"
             >
-              <div className="w-14 h-14 overflow-hidden rounded-full border border-[#C8860A20] transition-transform duration-500 group-hover:scale-110">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 overflow-hidden rounded-full border border-[#C8860A20] transition-transform duration-500 group-hover:scale-110">
                 <img 
                   src="/tick.jpeg" 
                   alt="RIF HONEY Logo" 
@@ -72,10 +72,10 @@ export default function Navbar() {
                 />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="serif font-bold text-2xl tracking-[0.15em] text-[#F5A623] group-hover:text-[#F0C060] transition-colors whitespace-nowrap">
+                <span className="serif font-bold text-xl sm:text-2xl tracking-[0.15em] text-[#F5A623] group-hover:text-[#F0C060] transition-colors whitespace-nowrap">
                   RIF HONEY
                 </span>
-                <span className="text-[11px] tracking-[0.25em] text-[#C8860A80] uppercase font-medium mt-1 whitespace-nowrap">
+                <span className="hidden sm:block text-[11px] tracking-[0.25em] text-[#C8860A80] uppercase font-medium mt-1 whitespace-nowrap">
                   Chakrane Mountains · Pure · Artisanal
                 </span>
               </div>
@@ -96,7 +96,7 @@ export default function Navbar() {
             </div>
 
             {/* Right side */}
-            <div className="flex items-center gap-12">
+            <div className="flex items-center gap-4 sm:gap-12">
               <button
                 onClick={toggleCart}
                 aria-label={`Shopping cart, ${totalItems} items`}
@@ -123,7 +123,7 @@ export default function Navbar() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-3 -mr-2 text-[#FDF6E380] hover:text-[#F5A623] transition-colors active-shrink"
+              className="md:hidden p-3 -mr-2 text-[#FDF6E3] hover:text-[#F5A623] transition-colors active-shrink z-50"
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
             >
@@ -143,15 +143,15 @@ export default function Navbar() {
         className={`fixed inset-0 z-40 glass transition-all duration-500 flex flex-col items-center justify-center ${
           menuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
         }`}
-        style={{ height: 'calc(var(--vh, 1vh) * 100)' }}
+        style={{ height: '100dvh' }}
       >
-        <div className="flex flex-col items-center gap-10">
+        <div className="flex flex-col items-center gap-8">
           {navLinks.map((link, i) => (
             <a
               key={link.label}
               href={`#${link.href}`}
               onClick={(e) => handleNavClick(e, link.href)}
-              className={`serif text-4xl font-light tracking-[0.2em] text-[#FDF6E3] hover:text-[#F5A623] transition-all duration-500 ${
+              className={`serif text-3xl sm:text-4xl font-light tracking-[0.2em] text-[#FDF6E3] hover:text-[#F5A623] transition-all duration-500 ${
                 menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}

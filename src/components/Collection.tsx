@@ -133,7 +133,7 @@ export default function Collection() {
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-3">
                     {product.tags.map((tag) => (
-                      <span key={tag} className="text-[9px] tracking-widest uppercase text-[#C8860A80] border border-[#C8860A30] px-2 py-0.5">
+                      <span key={tag} className="text-[10px] tracking-widest uppercase text-[#C8860A] border border-[#C8860A30] px-2 py-0.5">
                         {tag}
                       </span>
                     ))}
@@ -143,7 +143,7 @@ export default function Collection() {
                     <Link to={`/product/${product.slug}`} className="hover:text-[#F5A623] transition-colors">
                       <h3 className="serif text-2xl font-medium text-[#FDF6E3] leading-tight">{product.name}</h3>
                     </Link>
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#C8860A80] mt-1">{product.subtitle}</p>
+                    <p className="text-xs tracking-[0.2em] uppercase text-[#C8860A] mt-1 font-medium">{product.subtitle}</p>
                   </div>
 
                   {/* Weight Selection Chips */}
