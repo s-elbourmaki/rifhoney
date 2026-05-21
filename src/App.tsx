@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { CartProvider } from './context/CartContext';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/product/:slug" element={<ProductPage />} />
             <Route path="/catalogue" element={<CataloguePage />} />
           </Routes>
+          <Analytics />
         </div>
       </Router>
     </CartProvider>
